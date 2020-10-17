@@ -54,7 +54,7 @@ void FIAS::onSocketReadyRead()
     foreach (msg, dataList)
     {
         msg.remove(msg.indexOf(ETX), 1);
-        logs->append(msg);
+        logs->append("IN:   <---------- " + msg);
     }
 }
 
@@ -75,7 +75,7 @@ void FIAS::onSocketDisconnected()
 QString FIAS::formatMessage(QString eventMessage)
 {
     QDateTime now = QDateTime::currentDateTime();
-    qDebug() << eventMessage;
+    // qDebug() << eventMessage;
     if (eventMessage.indexOf("|DA%1") != -1 && eventMessage.indexOf("|TI%2") != -1)
     {
         eventMessage = QString(eventMessage).arg(now.toString("yyMMdd"), now.toString("hhmmss"));
@@ -92,7 +92,7 @@ void FIAS::sendMessage(QString eventMessage)
     eventMessage = this->formatMessage(eventMessage);
     QString paddedMessage = STX + eventMessage + ETX;
     tcpSocket->write(paddedMessage.toUtf8());
-    logs->append(eventMessage);
+    logs->append("OUT:  --------> " + eventMessage);
 }
 
 QString FIAS::getMessage(QString option)
