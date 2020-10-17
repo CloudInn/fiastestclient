@@ -1,5 +1,5 @@
 #include <QtNetwork>
-#include "fias.h"
+#include "src/fias.h"
 
 FIAS::FIAS(QTextEdit *logsObject)
 {

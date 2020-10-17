@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QtCore>
-#include "fias.h"
+#include "src/fias.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui

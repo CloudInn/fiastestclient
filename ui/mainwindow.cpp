@@ -4,7 +4,7 @@
 #include <QMessageBox>
 
 #include "mainwindow.h"
-#include "fias.h"
+#include "src/fias.h"
 
 #include "./ui_mainwindow.h"
 
