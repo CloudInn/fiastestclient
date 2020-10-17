@@ -54,7 +54,7 @@ void FIAS::onSocketReadyRead()
     foreach (msg, dataList)
     {
         msg.remove(msg.indexOf(ETX), 1);
-        logs->append("IN:   <---------- " + msg);
+        logs->append("IN:  <--------- " + msg);
     }
 }
 
@@ -69,7 +69,7 @@ void FIAS::onSocketConnected()
 void FIAS::onSocketDisconnected()
 {
     logs->append("Disconnected");
-    logs->append("*****************************");
+    logs->append("************************");
 }
 
 QString FIAS::formatMessage(QString eventMessage)
@@ -92,7 +92,7 @@ void FIAS::sendMessage(QString eventMessage)
     eventMessage = this->formatMessage(eventMessage);
     QString paddedMessage = STX + eventMessage + ETX;
     tcpSocket->write(paddedMessage.toUtf8());
-    logs->append("OUT:  --------> " + eventMessage);
+    logs->append("OUT: ---------> " + eventMessage);
 }
 
 QString FIAS::getMessage(QString option)
