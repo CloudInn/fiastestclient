@@ -55,6 +55,8 @@ void MainWindow::socketConnected()
     ui->connectButton->setDisabled(true);
     ui->disconnetPushButton->setDisabled(false);
     ui->sendMessageButton->setDisabled(false);
+    ui->eventComboBox->setDisabled(false);
+    ui->messageInput->setDisabled(false);
 }
 
 void MainWindow::socketDisconnected()
@@ -62,4 +64,6 @@ void MainWindow::socketDisconnected()
     ui->connectButton->setDisabled(false);
     ui->disconnetPushButton->setDisabled(true);
     ui->sendMessageButton->setDisabled(true);
+    ui->eventComboBox->setDisabled(true);
+    ui->messageInput->setDisabled(true);
 }

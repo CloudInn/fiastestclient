@@ -59,7 +59,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="messageInput"/>
+       <widget class="QLineEdit" name="messageInput">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -115,7 +119,7 @@
     <item row="1" column="1">
      <widget class="QComboBox" name="eventComboBox">
       <property name="enabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <item>
        <property name="text">
