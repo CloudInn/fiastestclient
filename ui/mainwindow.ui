@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>FIAS Client SImulator</string>
+   <string>FIAS Test Client</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="assets/resources.qrc">
+   <iconset resource="../assets/resources.qrc">
     <normaloff>:/images/favicon.png</normaloff>
     <normalon>:/images/favicon.png</normalon>
     <disabledoff>:/images/favicon.png</disabledoff>
@@ -99,6 +99,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="disconnetPushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Disconnect</string>
         </property>
@@ -148,7 +151,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="assets/resources.qrc"/>
+  <include location="../assets/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

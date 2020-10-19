@@ -12,7 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    fias = new FIAS(ui->logsTextArea);
+    fias = new FIAS();
+
+    connect(fias, SIGNAL(addToLog(QString)), SLOT(addToLogsViewer(QString)));
+    connect(fias, SIGNAL(socketConnected()), SLOT(socketConnected()));
+    connect(fias, SIGNAL(socketDisconnected()), SLOT(socketDisconnected()));
 }
 
 MainWindow::~MainWindow()
@@ -36,6 +40,24 @@ void MainWindow::on_eventComboBox_currentTextChanged(QString currentText)
     ui->messageInput->setText(fias->getMessage(currentText));
 }
 
-void MainWindow::on_disconnetPushButton_clicked(){
+void MainWindow::on_disconnetPushButton_clicked()
+{
     fias->disconnectFromHost();
+}
+
+void MainWindow::addToLogsViewer(QString msg)
+{
+    ui->logsTextArea->append(msg);
+}
+
+void MainWindow::socketConnected()
+{
+    ui->connectButton->setDisabled(true);
+    ui->disconnetPushButton->setDisabled(false);
+}
+
+void MainWindow::socketDisconnected()
+{
+    ui->connectButton->setDisabled(false);
+    ui->disconnetPushButton->setDisabled(true);
 }

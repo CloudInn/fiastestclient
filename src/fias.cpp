@@ -1,10 +1,9 @@
 #include <QtNetwork>
 #include "src/fias.h"
 
-FIAS::FIAS(QTextEdit *logsObject)
+FIAS::FIAS()
 {
     tcpSocket = new QTcpSocket(this);
-    logs = logsObject;
     events.insert("---------------", "");
     events.insert("Posting inquery PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|PI107|PMROOM|DA%1|");
     events.insert("Posting request PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|RN107|PMROOM|DA%1|TA1500|");
@@ -12,6 +11,24 @@ FIAS::FIAS(QTextEdit *logsObject)
     events.insert("Remote Checkout XC", "XC|RN2781|G#12345|BA13850|DA%1|TI%2|");
     events.insert("Link record LR", "LR|RI|FL|");
     events.insert("Link end LE", "LE|DA%1|TI%2|");
+
+    linkRecords.append("LR|RIDE|FLDATI|");
+    linkRecords.append("LR|RIDS|FLDATI|");
+    linkRecords.append("LR|RIGI|FLRNGSG#GFGNGLGVGGGAGDGTDATINPWS|");
+    linkRecords.append("LR|RIGO|FLRNG#GSDATIWS|");
+    linkRecords.append("LR|RIGC|FLRORNG#GFGNGLGVGGGSGAGDGTDATINPWS|");
+    linkRecords.append("LR|RIXL|FLG#MIMTRNDATI|");
+    linkRecords.append("LR|RIXT|FLG#MIMTRNDATI|");
+    linkRecords.append("LR|RIXD|FLG#MIRNDATI|");
+    linkRecords.append("LR|RIXI|FLBDBIDCG#RNF#FDDATI|");
+    linkRecords.append("LR|RIXB|FLG#RNASDATIBA|");
+    linkRecords.append("LR|RIXC|FLRNG#ASCTBADATI|");
+    linkRecords.append("LR|RIKR|FLKCKTRNWSCTDATIG#GAGDDTGGGNIDK#KORTSTA0|");
+    linkRecords.append("LR|RIKD|FLKCRNWSDATIG#IDRT|");
+    linkRecords.append("LR|RIKM|FLG#KCRNROWSDATIDTGAGDGGGNIDRT|");
+    linkRecords.append("LR|RIKZ|FLKCRNWSCTDATIG#GDDTGNKOAS|");
+    linkRecords.append("LR|RIPL|FLG#GNP#RNWSBADATIGAGDGFGLGVGGGTNPPM|");
+    linkRecords.append("LR|RIPA|FLASRNP#DATIGNWSG#|");
 
     connect(tcpSocket, SIGNAL(readyRead()), SLOT(onSocketReadyRead()));
     connect(tcpSocket, SIGNAL(connected()), SLOT(onSocketConnected()));
@@ -35,10 +52,10 @@ void FIAS::connectToHost(QString host, short port)
     }
     tcpSocket->abort();
     tcpSocket->connectToHost(host, port);
-    logs->append("Attempting to connect to server ...");
+    emit addToLog("Attempting to connect to server ...");
     if (!tcpSocket->waitForConnected(Timeout))
     {
-        logs->append(tcpSocket->errorString());
+        emit addToLog(tcpSocket->errorString());
     }
 }
 void FIAS::disconnectFromHost()
@@ -51,25 +68,40 @@ void FIAS::onSocketReadyRead()
     QByteArray data = tcpSocket->readAll();
     QList<QByteArray> dataList = data.split(STX);
     QByteArray msg;
+    QString linkRecordMsg;
+    bool sendLinkRecords = false;
     foreach (msg, dataList)
     {
         msg.remove(msg.indexOf(ETX), 1);
-        logs->append("IN:  <--------- " + msg);
+        emit addToLog("IN:  <--------- " + msg);
+        if (msg.startsWith("LD|"))
+        {
+            sendLinkRecords = true;
+        }
+    }
+    if (sendLinkRecords)
+    {
+        foreach (linkRecordMsg, this->linkRecords)
+        {
+            this->sendMessage(linkRecordMsg);
+        }
     }
 }
 
 void FIAS::onSocketConnected()
 {
+    emit socketConnected();
     QString msg = "LD|DA%1|TI%2|V#1.0|IFWW|";
-    logs->append("Connected");
-    logs->append("========================");
+    emit addToLog("Connected");
+    emit addToLog("========================");
     this->sendMessage(msg);
 }
 
 void FIAS::onSocketDisconnected()
 {
-    logs->append("Disconnected");
-    logs->append("************************");
+    emit socketDisconnected();
+    emit addToLog("Disconnected");
+    emit addToLog("************************");
 }
 
 QString FIAS::formatMessage(QString eventMessage)
@@ -92,7 +124,7 @@ void FIAS::sendMessage(QString eventMessage)
     eventMessage = this->formatMessage(eventMessage);
     QString paddedMessage = STX + eventMessage + ETX;
     tcpSocket->write(paddedMessage.toUtf8());
-    logs->append("OUT: ---------> " + eventMessage);
+    emit addToLog("OUT: ---------> " + eventMessage);
 }
 
 QString FIAS::getMessage(QString option)

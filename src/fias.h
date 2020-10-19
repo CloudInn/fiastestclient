@@ -13,21 +13,26 @@ class FIAS : public QObject
     Q_OBJECT
 private:
     QTcpSocket *tcpSocket;
-    QTextEdit *logs;
     QMap<QString, QString> events;
     QString formatMessage(QString);
+    QList<QString> linkRecords;
 private slots:
     void onSocketReadyRead();
     void onSocketConnected();
     void onSocketDisconnected();
+
 public:
-    FIAS(QTextEdit *logsObject = nullptr);
+    FIAS();
     ~FIAS();
 
     void connectToHost(QString, short);
     void disconnectFromHost();
     void sendMessage(QString);
     QString getMessage(QString);
+signals:
+    void addToLog(QString logMessage);
+    void socketConnected();
+    void socketDisconnected();
 };
 
 #endif // FIAS_H

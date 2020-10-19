@@ -28,5 +28,9 @@ private slots:
     void on_sendMessageButton_clicked();
     void on_eventComboBox_currentTextChanged(QString);
     void on_disconnetPushButton_clicked();
+
+    void addToLogsViewer(QString);
+    void socketConnected();
+    void socketDisconnected();
 };
 #endif // MAINWINDOW_H
