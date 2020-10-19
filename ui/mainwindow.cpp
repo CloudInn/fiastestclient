@@ -54,10 +54,12 @@ void MainWindow::socketConnected()
 {
     ui->connectButton->setDisabled(true);
     ui->disconnetPushButton->setDisabled(false);
+    ui->sendMessageButton->setDisabled(false);
 }
 
 void MainWindow::socketDisconnected()
 {
     ui->connectButton->setDisabled(false);
     ui->disconnetPushButton->setDisabled(true);
+    ui->sendMessageButton->setDisabled(true);
 }
