@@ -84,6 +84,7 @@ void FIAS::onSocketReadyRead()
         foreach (linkRecordMsg, this->linkRecords)
         {
             this->sendMessage(linkRecordMsg);
+            this->tcpSocket->waitForBytesWritten(1000);
         }
     }
 }
