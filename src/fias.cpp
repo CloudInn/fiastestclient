@@ -85,7 +85,6 @@ void FIAS::onSocketReadyRead()
         foreach (linkRecordMsg, this->linkRecords)
         {
             this->sendMessage(linkRecordMsg);
-            this->tcpSocket->waitForBytesWritten(1000);
         }
     }
 }
@@ -127,6 +126,7 @@ void FIAS::sendMessage(QString eventMessage)
     QString paddedMessage = STX + eventMessage + ETX;
     tcpSocket->write(paddedMessage.toUtf8());
     emit addToLog("OUT: ---------> " + eventMessage);
+    this->tcpSocket->waitForBytesWritten();
 }
 
 QString FIAS::getMessage(QString option)
