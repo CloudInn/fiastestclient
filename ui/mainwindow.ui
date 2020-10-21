@@ -138,6 +138,11 @@
       </item>
       <item>
        <property name="text">
+        <string>Posting simple PS</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
         <string>Bill view XR</string>
        </property>
       </item>

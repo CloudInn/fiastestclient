@@ -5,9 +5,10 @@ FIAS::FIAS()
 {
     tcpSocket = new QTcpSocket(this);
     events.insert("---------------", "");
-    events.insert("Posting inquery PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|PI107|PMROOM|DA%1|");
-    events.insert("Posting request PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|RN107|PMROOM|DA%1|TA1500|");
-    events.insert("Bill view XR", "XR|RN2781|G#12345|");
+    events.insert("Posting inquery PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|PI107|PMROOM|DA%1|TI%2|");
+    events.insert("Posting request PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|RN107|PMROOM|DA%1|TI%2|TA1500|");
+    events.insert("Posting request PS", "PS|P#12|DD004|CTInternational|PTC|RN107|DA%1|TI%2|TA1050|");
+    events.insert("Bill view XR", "XR|RN2781|G#12345|DA%1|TI%2|");
     events.insert("Remote Checkout XC", "XC|RN2781|G#12345|BA13850|DA%1|TI%2|");
     events.insert("Link record LR", "LR|RI|FL|");
     events.insert("Link end LE", "LE|DA%1|TI%2|");
@@ -28,7 +29,7 @@ FIAS::FIAS()
     linkRecords.append("LR|RIKM|FLG#KCRNROWSDATIDTGAGDGGGNIDRT|");
     linkRecords.append("LR|RIKZ|FLKCRNWSCTDATIG#GDDTGNKOAS|");
     linkRecords.append("LR|RIPL|FLG#GNP#RNWSBADATIGAGDGFGLGVGGGTNPPM|");
-    linkRecords.append("LR|RIPA|FLASRNP#DATIGNWSG#|");
+    linkRecords.append("LR|RIPA|FLASRNP#DATIGNWSG#CT|");
 
     connect(tcpSocket, SIGNAL(readyRead()), SLOT(onSocketReadyRead()));
     connect(tcpSocket, SIGNAL(connected()), SLOT(onSocketConnected()));
