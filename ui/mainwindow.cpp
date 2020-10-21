@@ -67,3 +67,8 @@ void MainWindow::socketDisconnected()
     ui->eventComboBox->setDisabled(true);
     ui->messageInput->setDisabled(true);
 }
+
+void MainWindow::on_clearPushButton_clicked()
+{
+    ui->logsTextArea->clear();
+}

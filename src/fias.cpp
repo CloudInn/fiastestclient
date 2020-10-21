@@ -1,4 +1,5 @@
 #include <QtNetwork>
+#include <QDebug>
 #include "src/fias.h"
 
 FIAS::FIAS()
@@ -73,11 +74,18 @@ void FIAS::onSocketReadyRead()
     bool sendLinkRecords = false;
     foreach (msg, dataList)
     {
-        msg.remove(msg.indexOf(ETX), 1);
-        emit addToLog("IN:  <--------- " + msg);
-        if (msg.startsWith("LD|"))
+        if (msg.length() > 0)
         {
-            sendLinkRecords = true;
+            msg.remove(msg.indexOf(ETX), 1);
+            emit addToLog("IN:  <--------- " + msg);
+            if (msg.startsWith("LD|"))
+            {
+                sendLinkRecords = true;
+            }
+            else if (msg.startsWith("LA|"))
+            {
+                this->sendMessage("LA|DA%1|TI%2|");
+            }
         }
     }
     if (sendLinkRecords)
