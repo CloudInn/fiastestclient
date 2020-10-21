@@ -53,15 +53,15 @@ void MainWindow::addToLogsViewer(QString msg)
 void MainWindow::socketConnected()
 {
     ui->connectButton->setDisabled(true);
-    ui->disconnetPushButton->setDisabled(false);
-    ui->sendMessageButton->setDisabled(false);
-    ui->eventComboBox->setDisabled(false);
-    ui->messageInput->setDisabled(false);
+    ui->disconnetPushButton->setEnabled(true);
+    ui->sendMessageButton->setEnabled(true);
+    ui->eventComboBox->setEnabled(true);
+    ui->messageInput->setEnabled(true);
 }
 
 void MainWindow::socketDisconnected()
 {
-    ui->connectButton->setDisabled(false);
+    ui->connectButton->setEnabled(true);
     ui->disconnetPushButton->setDisabled(true);
     ui->sendMessageButton->setDisabled(true);
     ui->eventComboBox->setDisabled(true);
