@@ -5,8 +5,8 @@ FIAS::FIAS()
 {
     tcpSocket = new QTcpSocket(this);
     events.insert("---------------", "");
-    events.insert("Posting inquery PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|PI107|PMROOM|DA%1|TI%2|");
-    events.insert("Posting request PR", "PR|WSHEY|P#12|G#111|GNAhmed Azab|RN107|PMROOM|DA%1|TI%2|TA1500|");
+    events.insert("Posting inquery PR", "PR|WSHEY|P#12|G#111|GNJohn Smith|PI107|PMROOM|DA%1|TI%2|");
+    events.insert("Posting request PR", "PR|WSHEY|P#12|G#111|GNJohn Smith|RN107|PMROOM|DA%1|TI%2|TA1500|");
     events.insert("Posting simple PS", "PS|P#12|DD004|CTInternational|PTC|RN107|DA%1|TI%2|TA1050|");
     events.insert("Bill view XR", "XR|RN2781|G#12345|DA%1|TI%2|");
     events.insert("Remote Checkout XC", "XC|RN2781|G#12345|BA13850|DA%1|TI%2|");
@@ -46,7 +46,6 @@ void FIAS::connectToHost(QString host, short port)
     const int Timeout = 2 * 1000;
     QString leMsg;
 
-    tcpSocket->abort();
     tcpSocket->connectToHost(host, port);
     emit addToLog("Attempting to connect to server ...");
     if (!tcpSocket->waitForConnected(Timeout))
@@ -57,7 +56,7 @@ void FIAS::connectToHost(QString host, short port)
 void FIAS::disconnectFromHost()
 {
     this->sendMessage(events["Link end LE"]);
-    tcpSocket->disconnected();
+    tcpSocket->abort();
 }
 void FIAS::onSocketReadyRead()
 {
