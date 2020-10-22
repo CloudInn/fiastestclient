@@ -1,5 +1,4 @@
 #include <QtNetwork>
-#include <QDebug>
 #include "src/fias.h"
 
 FIAS::FIAS()
@@ -47,11 +46,6 @@ void FIAS::connectToHost(QString host, short port)
     const int Timeout = 2 * 1000;
     QString leMsg;
 
-    if (tcpSocket->isOpen())
-    {
-        leMsg = "LE|DA201017|TI153651|";
-        this->sendMessage(leMsg);
-    }
     tcpSocket->abort();
     tcpSocket->connectToHost(host, port);
     emit addToLog("Attempting to connect to server ...");
@@ -134,7 +128,6 @@ void FIAS::sendMessage(QString eventMessage)
     QString paddedMessage = STX + eventMessage + ETX;
     tcpSocket->write(paddedMessage.toUtf8());
     emit addToLog("OUT: ---------> " + eventMessage);
-    this->tcpSocket->waitForBytesWritten();
 }
 
 QString FIAS::getMessage(QString option)
