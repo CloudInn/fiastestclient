@@ -15,9 +15,9 @@ FIAS::FIAS()
 
     linkRecords.append("LR|RIDE|FLDATI|");
     linkRecords.append("LR|RIDS|FLDATI|");
-    linkRecords.append("LR|RIGI|FLRNGSG#GFGNGLGVGGGAGDGTDATINPWS|");
-    linkRecords.append("LR|RIGO|FLRNG#GSDATIWS|");
-    linkRecords.append("LR|RIGC|FLRORNG#GFGNGLGVGGGSGAGDGTDATINPWS|");
+    linkRecords.append("LR|RIGI|FLRNGSG#GFGNGLGVGGGAGDGTDATINPWSA0A1A2A3A4A5A6A7A8A9|");
+    linkRecords.append("LR|RIGO|FLRNG#GSDATIWSA0A1A2A3A4A5A6A7A8A9|");
+    linkRecords.append("LR|RIGC|FLRORNG#GFGNGLGVGGGSGAGDGTDATINPWSA0A1A2A3A4A5A6A7A8A9|");
     linkRecords.append("LR|RIXL|FLG#MIMTRNDATI|");
     linkRecords.append("LR|RIXT|FLG#MIMTRNDATI|");
     linkRecords.append("LR|RIXD|FLG#MIRNDATI|");
@@ -28,7 +28,7 @@ FIAS::FIAS()
     linkRecords.append("LR|RIKD|FLKCRNWSDATIG#IDRT|");
     linkRecords.append("LR|RIKM|FLG#KCRNROWSDATIDTGAGDGGGNIDRT|");
     linkRecords.append("LR|RIKZ|FLKCRNWSCTDATIG#GDDTGNKOAS|");
-    linkRecords.append("LR|RIPL|FLG#GNP#RNWSBADATIGAGDGFGLGVGGGTNPPM|");
+    linkRecords.append("LR|RIPL|FLG#GNP#RNWSBADATIGAGDGFGLGVGGGTNPPMA0A1A2A3A4A5A6A7A8A9|");
     linkRecords.append("LR|RIPA|FLASRNP#DATIGNWSG#CT|");
 
     connect(tcpSocket, SIGNAL(readyRead()), SLOT(onSocketReadyRead()));
