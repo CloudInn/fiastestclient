@@ -140,6 +140,16 @@
             <string>Link record LR</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>Link alive LA</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Link start LS</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item>

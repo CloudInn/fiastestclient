@@ -12,6 +12,8 @@ FIAS::FIAS()
     events.insert("Remote Checkout XC", "XC|RN2781|G#12345|BA13850|DA%1|TI%2|");
     events.insert("Link record LR", "LR|RI|FL|");
     events.insert("Link end LE", "LE|DA%1|TI%2|");
+    events.insert("Link alive LA", "LA|DA%1|TI%2|");
+    events.insert("Link start LS", "LS|DA%1|TI%2|");
 
     linkRecords.append("LR|RIDE|FLDATI|");
     linkRecords.append("LR|RIDS|FLDATI|");
@@ -53,11 +55,13 @@ void FIAS::connectToHost(QString host, short port)
         emit addToLog(tcpSocket->errorString());
     }
 }
+
 void FIAS::disconnectFromHost()
 {
     this->sendMessage(events["Link end LE"]);
     tcpSocket->abort();
 }
+
 void FIAS::onSocketReadyRead()
 {
     QByteArray data = tcpSocket->readAll();
@@ -71,13 +75,9 @@ void FIAS::onSocketReadyRead()
         {
             msg.remove(msg.indexOf(ETX), 1);
             emit addToLog("IN:  <--------- " + msg);
-            if (msg.startsWith("LD|"))
+            if (msg.startsWith("LS|"))
             {
                 sendLinkRecords = true;
-            }
-            else if (msg.startsWith("LA|"))
-            {
-                this->sendMessage("LA|DA%1|TI%2|");
             }
         }
     }
