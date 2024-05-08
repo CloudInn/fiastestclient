@@ -32,6 +32,7 @@ FIAS::FIAS()
     linkRecords.append("LR|RIKZ|FLKCRNWSCTDATIG#GDDTGNKOAS|");
     linkRecords.append("LR|RIPL|FLG#GNP#RNWSBADATIGAGDGFGLGVGGGTNPPMG+A0A1A2A3A4A5A6A7A8A9|");
     linkRecords.append("LR|RIPA|FLASRNP#DATIGNWSG#CTG+|");
+    linkRecords.append("LR|RIKR|FLKCKTRNWSCTDATIG#GAGDDTGGGNIDK#KORTSTA0|");
 
     connect(tcpSocket, SIGNAL(readyRead()), SLOT(onSocketReadyRead()));
     connect(tcpSocket, SIGNAL(connected()), SLOT(onSocketConnected()));
